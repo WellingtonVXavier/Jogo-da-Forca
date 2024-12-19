@@ -110,17 +110,42 @@ function desenharBotao() {
 }
 
 function verificarLetra() {
-  let letraValor = document.querySelector("#letraInput").value;
-  letraDigitadas.push(letraValor);
-  filtrarArrayLetras(letraDigitadas);
-  desenharLetrasDigitadas();
-  if (letraValor && !letraValor == "") {
+  let letraValor = document.querySelector("#letraInput").value.toUpperCase();
+
+  if (letraDigitadas.includes(letraValor)) {
+    exibirModalAviso();
+    document.querySelector("#letraInput").value = "";
+    return;
+  }
+
+  if (letraValor && letraValor !== "") {
     existeLetra(palavraArray, letraValor);
     trocarLetra(palavraArray, letraValor);
     verificarVidas(vidas);
-    let letraValor1 = (document.querySelector("#letraInput").value = "");
+
+    document.querySelector("#letraInput").value = "";
+
     verificarPalavraCompleta();
   }
+}
+
+function exibirModalAviso() {
+  let modal = document.getElementById("modalAviso");
+  modal.style.display = "block";
+
+  let closeModal = document.getElementById("closeModalAviso");
+
+  // Fechar o modal quando o botão de fechar for clicado
+  closeModal.onclick = function () {
+    modal.style.display = "none";
+  };
+
+  // Fechar o modal se o usuário clicar fora dele
+  window.onclick = function (event) {
+    if (event.target === modal) {
+      modal.style.display = "none";
+    }
+  };
 }
 
 function desenharVidas(vidas) {
