@@ -8,30 +8,25 @@ let divConteiner = document.querySelector("div");
 body.appendChild(divConteiner);
 
 function iniciarJogo() {
-  // Mostrar o modal para que o jogador digite a palavra
   let modal = document.getElementById("modal");
   modal.style.display = "block";
 
   let btnConfirmar = document.getElementById("btnConfirmar");
   let closeModal = document.getElementById("closeModal");
 
-  // Fechar o modal ao clicar no "X"
   closeModal.onclick = function () {
     modal.style.display = "none";
   };
 
-  // Fechar o modal ao clicar fora dele
   window.onclick = function (event) {
     if (event.target === modal) {
       modal.style.display = "none";
     }
   };
 
-  // Quando o jogador clicar no botão "Confirmar"
   btnConfirmar.onclick = function () {
     let palavra = document.getElementById("inputPalavra").value;
     if (palavra) {
-      // Passar a palavra para a função de desenhar o jogo
       console.log("Palavra digitada: ", palavra);
       desenharTela(palavra);
       modal.style.display = "none";
@@ -53,11 +48,13 @@ function desenharTela(palavra) {
 }
 
 function desenharCampos(campos) {
-  let i = 0;
+  let divConteiner = document.querySelector("#game1");
+  divConteiner.innerHTML = "";
+
   campos.forEach((campo, i) => {
     let p = document.createElement("p");
-    p.setAttribute("id", `p${i++}`);
-    if (campo == " ") {
+    p.setAttribute("id", `p${i}`);
+    if (campo === " ") {
       p.innerHTML = "-";
     } else {
       p.innerHTML = "_";
@@ -106,7 +103,7 @@ function desenharBotao() {
 function desenharBotao() {
   let btnVerificar = document.createElement("button");
   btnVerificar.innerHTML = "Verificar";
-  btnVerificar.setAttribute("class", "btn btn-warning");
+  btnVerificar.setAttribute("class", "btn btn-warning mt-3");
   btnVerificar.setAttribute("id", "btnVerificar");
   divLetra.appendChild(btnVerificar);
   btnVerificar.setAttribute("onClick", "verificarLetra()");
